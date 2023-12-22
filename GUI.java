@@ -77,6 +77,7 @@ public class GUI  implements ActionListener{
         
         window = new JFrame("Notepad");
         window.setSize(800, 600);
+        window.setLocation(400, 140);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
     }
