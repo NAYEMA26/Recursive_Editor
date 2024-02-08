@@ -1,2 +1,2 @@
-# Simple-Notepad
+#NAYEMA_FERDOUSHI/ Simple-Notepad
 One day project.  Dedicate my 24 friend.
