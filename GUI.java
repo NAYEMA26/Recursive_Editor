@@ -2,6 +2,7 @@
 package notepad;
 
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
@@ -18,7 +19,17 @@ import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
-import javax.swing.undo.CannotUndoException;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
 import javax.swing.undo.UndoManager;
 
 
@@ -34,7 +45,7 @@ public class GUI  implements ActionListener{
     boolean wordWrapOn = false;
     // top menu bar
     JMenuBar menuBar;
-    JMenu menuFile,menuEdit,menuFormat, menuColor;
+    JMenu menuFile,menuEdit,menuFormat, menuColor,menuAbout;
     //file menu
     JMenuItem itemNew, itemOpen,itemSave, itemSaveAs, itemExit;
     // format menu
@@ -44,11 +55,14 @@ public class GUI  implements ActionListener{
     JMenuItem color1, color2, color3;
     // edit menu
     JMenuItem undo,redo;
+    //help menu
+    JMenuItem info;
     
     FileMacanism  file = new FileMacanism(this);
     FormatMacanism format = new FormatMacanism(this);
     ColorMacanism color = new ColorMacanism (this);
     EditMacanism edit = new EditMacanism(this);
+    AboutMacanism about = new AboutMacanism(this);
     
     UndoManager udo = new UndoManager();
     public static void main(String[] args) {
@@ -65,10 +79,12 @@ public class GUI  implements ActionListener{
         createFormatMenu();
         createColorMenu();
         createEditMenu();
+        createAboutMenu();
+        
         format.selectedFont = "Arial";
         format.createFont(26);
         format.wordWrap();
-        color.changeColor("Black");
+        color.changeColor("White");
         
         window.setVisible(true);
     }
@@ -77,8 +93,8 @@ public class GUI  implements ActionListener{
         
         window = new JFrame("Notepad");
         window.setSize(800, 600);
-      //  window.setLocation(400, 140);
-         window.setLocationRelativeTo(null);
+        //window.setLocation(400, 140);
+        window.setLocationRelativeTo(null);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
     }
@@ -119,6 +135,10 @@ public class GUI  implements ActionListener{
         
          menuColor = new JMenu("Color");
         menuBar.add(menuColor);
+        
+         menuAbout = new JMenu("About");
+        menuBar.add(menuAbout);
+
     }
     
     public  void createFileMenu(){
@@ -239,6 +259,14 @@ public class GUI  implements ActionListener{
         menuEdit.add(redo);
         
     }
+    
+    public void createAboutMenu(){
+        info = new JMenuItem("Information");
+        info.addActionListener(this);
+        info.setActionCommand("Information");
+        menuAbout.add(info);
+     
+    }
     @Override
     public void actionPerformed (ActionEvent e){
         
@@ -351,6 +379,10 @@ public class GUI  implements ActionListener{
                 edit.redo();
                  break;
               }
+                case "Information":{
+                    about.setAbout();
+                    break;
+                }
         }
     }
  
@@ -563,4 +595,67 @@ public class EditMacanism {
        gui.udo.redo();
     }
 }
+
+public class AboutMacanism {
+    GUI gui;
+    public AboutMacanism(GUI gui){
+        this.gui = gui;
+    }
+    
+    public void setAbout(){
+        Lab02 l = new Lab02();
+        String[] args = null;
+        l.main(args);
+    }
+    
+    
+}
+
+    public class Lab02{
+        
+        public static void main(String[] args) {
+            SwingUtilities.invokeLater(() -> {
+            createAndShowGUI();
+        });
+            
+        }
+    
+     private static void createAndShowGUI() {
+        JFrame frame = new JFrame("Lab02");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JPanel panel = new JPanel();
+
+        JButton button = new JButton("Visit GitHub");
+        button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    openWebpage("https://github.com/NAYEMA26");
+                } catch (URISyntaxException ex) {
+                    Logger.getLogger(Lab02.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(Lab02.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+
+        panel.add(button);
+
+        frame.getContentPane().add(panel);
+
+        frame.pack();
+        frame.setVisible(true);
+    }
+
+    private static void openWebpage(String url) throws URISyntaxException, IOException {
+        Desktop desktop = Desktop.getDesktop(); // Handle the exception appropriately, for instance, display an error message
+        if (desktop.isDesktopSupported() && desktop.isSupported(Desktop.Action.BROWSE)) {
+            desktop.browse(new URI(url));
+        } else {
+            // If not supported or not allowed, show a message to the user
+            JOptionPane.showMessageDialog(null, "Browsing is not supported on this platform.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }   
+    }
+
 }
