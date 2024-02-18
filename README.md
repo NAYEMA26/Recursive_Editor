@@ -1,2 +1,3 @@
 #NAYEMA_FERDOUSHI/ Simple-Notepad
-One day project.  Dedicate my 24 friend.
+
+Project name : Recursive Editor.
