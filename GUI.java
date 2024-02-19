@@ -1,6 +1,13 @@
 
 package notepad;
-
+/**
+ *
+ * @author NAYEMA FERDOUSHI
+ * PATUAKHALI SCIENCE & TECHNOLOGY UNIVERSITY
+ * ID 2102026
+ * PROJECT NAME : RECURSIVE EDITOR 
+ * 2nd SEMESTER PROJECT IN JAVA LANGUAGE
+ */
 import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
@@ -16,18 +23,25 @@ import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
 import java.awt.FileDialog;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import javax.swing.undo.UndoManager;
@@ -55,8 +69,8 @@ public class GUI  implements ActionListener{
     JMenuItem color1, color2, color3;
     // edit menu
     JMenuItem undo,redo;
-    //help menu
-    JMenuItem info;
+    //About menu
+    JMenuItem info, feedback;
     
     FileMacanism  file = new FileMacanism(this);
     FormatMacanism format = new FormatMacanism(this);
@@ -91,7 +105,7 @@ public class GUI  implements ActionListener{
     
     public void createWindow(){
         
-        window = new JFrame("Notepad");
+        window = new JFrame("Recursive Editor ");
         window.setSize(800, 600);
         //window.setLocation(400, 140);
         window.setLocationRelativeTo(null);
@@ -265,7 +279,13 @@ public class GUI  implements ActionListener{
         info.addActionListener(this);
         info.setActionCommand("Information");
         menuAbout.add(info);
-     
+        
+        
+       feedback = new JMenuItem("Feedback ");
+       feedback.addActionListener(this);
+       feedback.setActionCommand("Feedback");
+       menuAbout.add(feedback);
+       
     }
     @Override
     public void actionPerformed (ActionEvent e){
@@ -379,8 +399,15 @@ public class GUI  implements ActionListener{
                 edit.redo();
                  break;
               }
-                case "Information":{
+                case "Information":
+                {
                     about.setAbout();
+                    break;
+                }
+                
+                case "Feedback":
+                {
+                    about.feedback();
                     break;
                 }
         }
@@ -608,6 +635,13 @@ public class AboutMacanism {
         l.main(args);
     }
     
+    public void feedback(){
+        ShowInfo sms = new ShowInfo();
+        
+        String[] args = null;
+        sms.main(args);
+    }
+    
     
 }
 
@@ -621,11 +655,16 @@ public class AboutMacanism {
         }
     
      private static void createAndShowGUI() {
-        JFrame frame = new JFrame("Lab02");
+        JFrame frame = new JFrame("LINK");
+        
+        frame.setVisible(true);
+        frame.setSize(200,200);
+        frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel panel = new JPanel();
-
+        
         JButton button = new JButton("Visit GitHub");
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -657,5 +696,86 @@ public class AboutMacanism {
         }
     }   
     }
+
+    public class ShowInfo extends JFrame implements ActionListener {
+    private JTextField txtapi, txtmsg, txtsender, txtnumber;
+
+    public ShowInfo() {
+        setTitle("Send Feedback SMS ");
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(5, 2));
+
+        JLabel labelApiKey = new JLabel("API Key:");
+        txtapi = new JTextField();
+        JLabel lblMessage = new JLabel("Message:");
+        txtmsg = new JTextField();
+        JLabel lblSender = new JLabel("Sender:");
+        txtsender = new JTextField();
+        JLabel lblNumber = new JLabel("Recipient Number:");
+        txtnumber = new JTextField();
+
+        JButton btnSend = new JButton("Send");
+        btnSend.addActionListener(this);
+
+        panel.add(labelApiKey);
+        panel.add(txtapi);
+        panel.add(lblMessage);
+        panel.add(txtmsg);
+        panel.add(lblSender);
+        panel.add(txtsender);
+        panel.add(lblNumber);
+        panel.add(txtnumber);
+        panel.add(new JLabel());
+        panel.add(btnSend);
+
+        add(panel);
+        setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getActionCommand().equals("Send")) {
+            try {
+                String apiKey = "apikey=" + URLEncoder.encode(txtapi.getText(), "UTF-8");
+                String message = "&message=" + URLEncoder.encode(txtmsg.getText(), "UTF-8");
+                String sender = "&sender=" + URLEncoder.encode(txtsender.getText(), "UTF-8");
+                String numbers = "&numbers=" + URLEncoder.encode(txtnumber.getText(), "UTF-8");
+
+                HttpURLConnection conn = (HttpURLConnection) new URL("https://api.txtlocal.com/send/?").openConnection();
+
+                String data = apiKey + numbers + message + sender;
+
+                conn.setDoOutput(true);
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Length", Integer.toString(data.length()));
+                conn.getOutputStream().write(data.getBytes("UTF-8"));
+
+                BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                StringBuffer stringBuffer = new StringBuffer();
+                String line;
+
+                while ((line = rd.readLine()) != null) {
+                    JOptionPane.showMessageDialog(null, "Message sent successfully.");
+                }
+
+                rd.close();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+      try{
+          new ShowInfo();
+      }catch(Exception e){
+          System.out.println(e);
+      }
+        
+    }
+}
 
 }
