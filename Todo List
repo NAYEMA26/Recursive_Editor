@@ -1,0 +1,233 @@
+
+package notepad;
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.border.*;
+
+
+
+public class ToDoList extends JFrame{
+    
+    TitleBar title = new TitleBar();
+    ButtonPanel buttonPanel = new ButtonPanel();
+    List list = new List();
+    private JButton addtask;
+    private JButton clear;
+    
+    public ToDoList(){
+         
+    
+        this.setSize(450, 700);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setVisible(true);
+        this.setLocationRelativeTo(null);
+        
+        
+        this.add(this.title, BorderLayout.NORTH);
+        this.add(this.buttonPanel, BorderLayout.SOUTH);
+        this.add(this.list, BorderLayout.CENTER);
+        
+        
+        addtask = buttonPanel.getAddTaskButton();
+        clear = buttonPanel.getClearButton();
+        
+     //  this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
+        addListener();
+    } 
+    
+    public  void addListener(){
+        
+        addtask.addMouseListener(new MouseAdapter(){
+        
+        public void mousePressed(MouseEvent e){
+            Task task = new Task();
+            list.add(task);
+            list.indexNumber();
+          revalidate();
+           
+          JButton done = task.getDone();
+          done.addMouseListener(new MouseAdapter(){
+          public void mousePressed(MouseEvent e) {
+              task.doneStatus();
+                revalidate();
+          }
+          
+          });
+          
+          JButton remove = task.getRemove();
+          remove.addMouseListener(new MouseAdapter(){
+          public void mousePressed(MouseEvent e) {
+              list.remove(task);
+              list.indexNumber();
+                revalidate();
+                repaint();
+          }
+          
+          });
+        }
+    });
+       clear.addMouseListener(new MouseAdapter(){
+          public void mousePressed(MouseEvent e) {
+              Component[] taskList = list.getComponents();
+              for (int i = 0; i <taskList.length; i++) {
+                  if(taskList[i] instanceof Task){
+                      list.remove((Task)taskList[i]);
+                      
+                  }
+              }
+              revalidate();
+                repaint();
+          }
+          
+          }); 
+    }
+}
+
+
+class Main{
+    public static void main(String[] args) {
+        ToDoList todo = new ToDoList();
+        
+        
+    }
+}
+class Task extends JPanel{
+    private JLabel index;
+    private JTextField taskName;
+    private JButton done;
+    private JButton remove;
+    
+    public Task(){
+        GridLayout layoutTask = new GridLayout(1,4);
+        layoutTask.setHgap(5);
+        this.setPreferredSize(new Dimension(450,20));
+        this.setBackground(Color.WHITE);
+        this.setLayout(layoutTask);
+        
+        
+        index = new JLabel("");
+   
+      //  index.setPreferredSize(new Dimension(2,2));
+        index.setHorizontalAlignment(JLabel.LEFT);
+        index.setBackground(Color.pink);
+        this.add(this.index);
+        
+        taskName = new JTextField("Enter task");
+        taskName.setPreferredSize(new Dimension(20,20));
+        taskName.setBorder(BorderFactory.createEmptyBorder());
+        taskName.setBackground(Color.WHITE);
+        this.add(taskName);
+        
+        done = new JButton("Done");
+        done.setPreferredSize(new Dimension(10,20));
+        this.add(this.done);
+        
+        
+        remove = new JButton("Remove");
+        remove.setPreferredSize(new Dimension(10,20));
+        this.add(remove);
+        
+        
+        
+    }
+    
+    public void writeIndex(int n)   {
+        this.index.setText(String.valueOf(n));
+        this.revalidate();
+    }
+    
+    public JButton getDone(){
+        return this.done;
+    }
+    
+    public JButton getRemove(){
+        return this.remove;
+    }
+    
+    public void doneStatus(){
+        this.taskName.setBackground(Color.green);
+        this.index.setBackground(Color.green);
+        this.remove.setBackground(Color.green);
+        this.done.setBackground(Color.green);
+        this.setBackground(Color.green);
+        revalidate();
+    }
+}
+class List extends JPanel {
+    public  List(){
+        GridLayout layout = new GridLayout(10,1);
+        layout.setVgap(5);
+        this.setLayout(layout);
+        this.setBackground(Color.LIGHT_GRAY);
+        
+        
+    }
+    
+    public  void indexNumber(){
+        Component[] listComponent = this.getComponents();
+        for (int i = 0; i < listComponent.length; i++) {
+            if(listComponent[i] instanceof Task){
+             ((Task)listComponent[i]).writeIndex(i+1)   ;
+            }
+        }
+    }
+}
+
+
+class ButtonPanel extends JPanel{
+    private JButton addtask;
+    private JButton clear;
+    
+    Border emptyborder = BorderFactory.createEmptyBorder();
+   
+    public ButtonPanel(){
+        this.setPreferredSize(new Dimension (450,80));
+        this.setBackground(new Color (129, 20,207));
+        
+        addtask = new JButton("Add Task");
+        addtask.setBorder(emptyborder);
+       
+        addtask.setFont(new Font ("Sans-serif", Font.PLAIN, 20));
+       this.add(addtask);
+       
+       this.add(Box.createHorizontalStrut(20));
+       
+       
+       clear =new JButton ("Clear All Task");
+       clear.setBorder(emptyborder);
+       clear.setFont(new Font ("Sans-serif", Font.PLAIN, 20));
+       this.add(clear);
+       
+       
+        
+    }
+    
+    public JButton getAddTaskButton(){
+        return addtask;
+    }
+    
+    public JButton getClearButton(){
+        return clear;
+    }
+}   
+
+
+class TitleBar extends JPanel{
+    
+    JLabel TitleText = new JLabel("Todo List");
+    
+   public  TitleBar(){
+        this.setPreferredSize(new Dimension(450,80)); 
+        this.setBackground(new Color (90,143,123));
+        
+        TitleText.setPreferredSize(new Dimension(200,80));
+        TitleText.setFont(new Font("Sans-serif",Font.BOLD, 20));
+        TitleText.setHorizontalAlignment(JLabel.CENTER);
+        this.add(this.TitleText);
+        
+    }
+   
+}
