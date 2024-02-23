@@ -1,5 +1,6 @@
 
 package notepad;
+
 /**
  *
  * @author NAYEMA FERDOUSHI
@@ -8,8 +9,12 @@ package notepad;
  * PROJECT NAME : RECURSIVE EDITOR 
  * 2nd SEMESTER PROJECT IN JAVA LANGUAGE
  */
+
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Desktop;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
@@ -24,6 +29,8 @@ import javax.swing.event.UndoableEditListener;
 import java.awt.FileDialog;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -37,12 +44,14 @@ import java.net.URLEncoder;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import javax.swing.border.Border;
 
 import javax.swing.undo.UndoManager;
 
@@ -61,14 +70,14 @@ public class GUI  implements ActionListener{
     JMenuBar menuBar;
     JMenu menuFile,menuEdit,menuFormat, menuColor,menuAbout;
     //file menu
-    JMenuItem itemNew, itemOpen,itemSave, itemSaveAs, itemExit;
+    JMenuItem itemNew,itemTodo, itemOpen,itemSave, itemSaveAs, itemExit;
     // format menu
     JMenuItem itemWarp,itemArial,itemComic, itemTimes,item8,item12,item16,item20,item24,item26;
-    JMenu menuFont,menuFontSize;
+    JMenu menuFont,menuFontSize,menuNew;
     // color menu
     JMenuItem color1, color2, color3;
     // edit menu
-    JMenuItem undo,redo;
+    JMenuItem undo,redo; 
     //About menu
     JMenuItem info, feedback;
     
@@ -156,10 +165,20 @@ public class GUI  implements ActionListener{
     }
     
     public  void createFileMenu(){
-        itemNew = new JMenuItem ("New");
-        itemNew.addActionListener(this);
-        itemNew.setActionCommand("New");
-        menuFile.add(itemNew);
+         menuNew = new JMenu("New");
+        menuFile.add(menuNew);
+        
+        
+          
+       itemNew = new JMenuItem("NewPage");
+       itemNew.addActionListener(this);
+       itemNew.setActionCommand("New");
+       menuNew.add(itemNew);
+       
+        itemTodo = new JMenuItem ("Todo List");
+        itemTodo.addActionListener(this);
+        itemTodo.setActionCommand("Todo List");
+        menuNew.add(itemTodo);
         
          itemOpen = new JMenuItem ("Open");
          itemOpen.addActionListener(this);
@@ -300,6 +319,12 @@ public class GUI  implements ActionListener{
                 break;
             }
             
+            case "Todo List":
+            {
+               file.todo();
+                break;
+            }
+            
              case "Open":
             {
                 file.open();
@@ -432,6 +457,10 @@ public class FileMacanism {
         
     }
     
+    public void todo(){
+        ToDoList todoList = new ToDoList();
+        
+    }
     public void open(){
         
         FileDialog fd = new FileDialog(gui.window, "Open", FileDialog.LOAD);
@@ -638,8 +667,8 @@ public class AboutMacanism {
     public void feedback(){
         ShowInfo sms = new ShowInfo();
         
-        String[] args = null;
-        sms.main(args);
+      //  String[] args = null;
+       // sms.main(args);
     }
     
     
@@ -769,13 +798,235 @@ public class AboutMacanism {
     }
 
     public static void main(String[] args) {
-      try{
-          new ShowInfo();
-      }catch(Exception e){
-          System.out.println(e);
-      }
+      
         
     }
 }
 
+
+public class ToDoList extends JFrame{
+    
+    TitleBar title = new TitleBar();
+    ButtonPanel buttonPanel = new ButtonPanel();
+    List list = new List();
+    private JButton addtask;
+    private JButton clear;
+    
+    public ToDoList(){
+         
+    
+        this.setSize(450, 700);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setVisible(true);
+        this.setLocationRelativeTo(null);
+        
+        
+        this.add(this.title, BorderLayout.NORTH);
+        this.add(this.buttonPanel, BorderLayout.SOUTH);
+        this.add(this.list, BorderLayout.CENTER);
+        
+        
+        addtask = buttonPanel.getAddTaskButton();
+        clear = buttonPanel.getClearButton();
+        
+     //  this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
+        addListener();
+    } 
+    
+    public  void addListener(){
+        
+        addtask.addMouseListener(new MouseAdapter(){
+        
+        public void mousePressed(MouseEvent e){
+            Task task = new Task();
+            list.add(task);
+            list.indexNumber();
+          revalidate();
+           
+          JButton done = task.getDone();
+          done.addMouseListener(new MouseAdapter(){
+          public void mousePressed(MouseEvent e) {
+              task.doneStatus();
+                revalidate();
+          }
+          
+          });
+          
+          JButton remove = task.getRemove();
+          remove.addMouseListener(new MouseAdapter(){
+          public void mousePressed(MouseEvent e) {
+              list.remove(task);
+              list.indexNumber();
+                revalidate();
+                repaint();
+          }
+          
+          });
+        }
+    });
+       clear.addMouseListener(new MouseAdapter(){
+          public void mousePressed(MouseEvent e) {
+              Component[] taskList = list.getComponents();
+              for (int i = 0; i <taskList.length; i++) {
+                  if(taskList[i] instanceof Task){
+                      list.remove((Task)taskList[i]);
+                      
+                  }
+              }
+              revalidate();
+                repaint();
+          }
+          
+          }); 
+    }
+
+   
+}
+
+
+class Main{
+    
+    public static void main(String[] args) {
+        
+    }
+}
+class Task extends JPanel{
+    private JLabel index;
+    private JTextField taskName;
+    private JButton done;
+    private JButton remove;
+    
+    public Task(){
+        GridLayout layoutTask = new GridLayout(1,4);
+        layoutTask.setHgap(5);
+        this.setPreferredSize(new Dimension(450,20));
+        this.setBackground(Color.WHITE);
+        this.setLayout(layoutTask);
+        
+        
+        index = new JLabel("");
+   
+      //  index.setPreferredSize(new Dimension(2,2));
+        index.setHorizontalAlignment(JLabel.LEFT);
+        index.setBackground(Color.pink);
+        this.add(this.index);
+        
+        taskName = new JTextField("Enter task");
+        taskName.setPreferredSize(new Dimension(20,20));
+        taskName.setBorder(BorderFactory.createEmptyBorder());
+        taskName.setBackground(Color.WHITE);
+        this.add(taskName);
+        
+        done = new JButton("Done");
+        done.setPreferredSize(new Dimension(10,20));
+        this.add(this.done);
+        
+        
+        remove = new JButton("Remove");
+        remove.setPreferredSize(new Dimension(10,20));
+        this.add(remove);
+        
+        
+        
+    }
+    
+    public void writeIndex(int n)   {
+        this.index.setText(String.valueOf(n));
+        this.revalidate();
+    }
+    
+    public JButton getDone(){
+        return this.done;
+    }
+    
+    public JButton getRemove(){
+        return this.remove;
+    }
+    
+    public void doneStatus(){
+        this.taskName.setBackground(Color.green);
+        this.index.setBackground(Color.green);
+        this.remove.setBackground(Color.green);
+        this.done.setBackground(Color.green);
+        this.setBackground(Color.green);
+        revalidate();
+    }
+}
+class List extends JPanel {
+    public  List(){
+        GridLayout layout = new GridLayout(10,1);
+        layout.setVgap(5);
+        this.setLayout(layout);
+        this.setBackground(Color.LIGHT_GRAY);
+        
+        
+    }
+    
+    public  void indexNumber(){
+        Component[] listComponent = this.getComponents();
+        for (int i = 0; i < listComponent.length; i++) {
+            if(listComponent[i] instanceof Task){
+             ((Task)listComponent[i]).writeIndex(i+1)   ;
+            }
+        }
+    }
+}
+
+
+class ButtonPanel extends JPanel{
+    private JButton addtask;
+    private JButton clear;
+    
+    Border emptyborder = BorderFactory.createEmptyBorder();
+   
+    public ButtonPanel(){
+        this.setPreferredSize(new Dimension (450,80));
+        this.setBackground(new Color (129, 20,207));
+        
+        addtask = new JButton("Add Task");
+        addtask.setBorder(emptyborder);
+       
+        addtask.setFont(new Font ("Sans-serif", Font.PLAIN, 20));
+       this.add(addtask);
+       
+       this.add(Box.createHorizontalStrut(20));
+       
+       
+       clear =new JButton ("Clear All Task");
+       clear.setBorder(emptyborder);
+       clear.setFont(new Font ("Sans-serif", Font.PLAIN, 20));
+       this.add(clear);
+       
+       
+        
+    }
+    
+    public JButton getAddTaskButton(){
+        return addtask;
+    }
+    
+    public JButton getClearButton(){
+        return clear;
+    }
+}   
+
+
+class TitleBar extends JPanel{
+    
+    JLabel TitleText = new JLabel("Todo List");
+    
+   public  TitleBar(){
+        this.setPreferredSize(new Dimension(450,80)); 
+        this.setBackground(new Color (90,143,123));
+        
+        TitleText.setPreferredSize(new Dimension(200,80));
+        TitleText.setFont(new Font("Sans-serif",Font.BOLD, 20));
+        TitleText.setHorizontalAlignment(JLabel.CENTER);
+        this.add(this.TitleText);
+        
+    }
+   
+}
+    
 }
