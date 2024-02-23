@@ -1,22 +1,6 @@
 
 package notepad;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-
-/**
- *
- * @author hp
- */
 
 
 
@@ -48,28 +32,21 @@ public class WelcomeWindow extends JFrame implements ActionListener {
     JTextField ctf;
     JPasswordField ppf;
     
-    JButton but_log, but_clr, but_back;
+    JButton but_next, but_clr, but_back;
     
     WelcomeWindow()
     {
         
         super("Patuakhali Science & Technology");
         
-      /* ImageIcon img1 = new ImageIcon(ClassLoader.getSystemResource("icon/pstu.icon.png"));
-        Image img2 = img1.getImage().getScaledInstance(100, 100,Image.SCALE_DEFAULT);
+       ImageIcon img1 = new ImageIcon(ClassLoader.getSystemResource("icon/pstu.icon.png"));
+        Image img2 = img1.getImage().getScaledInstance(50, 50,Image.SCALE_DEFAULT);
         ImageIcon img3 = new ImageIcon(img2);
         JLabel image = new JLabel(img3);
-        image.setBounds(350, 10, 100, 100);
+        image.setBounds(170, 12, 50, 50);
         add(image);
-      */  
-       /*   ImageIcon iimg1 = new ImageIcon(ClassLoader.getSystemResource("icon/pstu.dairy.jpg"));
-        Image iimg2 = iimg1.getImage().getScaledInstance(100, 100,Image.SCALE_DEFAULT);
-        ImageIcon iimg3 = new ImageIcon(iimg2);
-        JLabel iimage = new JLabel(iimg3);
-        iimage.setBounds(630, 350, 100, 100);
-        add(iimage);
-        */
-       
+      
+        
          lab = new JLabel("      Recursive Editor");
         lab.setForeground(Color.BLACK);
         lab.setFont(new Font("AvantGrade",Font.BOLD, 28));
@@ -127,21 +104,21 @@ public class WelcomeWindow extends JFrame implements ActionListener {
         but_clr.addActionListener(this);
         add(but_clr);
         
-          but_log = new JButton("NEXT  ");
-        but_log.setFont(new Font("Arial",Font.BOLD,14));
-        but_log.setForeground(Color.white);
-        but_log.setBackground(Color.black);
-        but_log.setBounds(325,350,230,30);
-        but_log.addActionListener(this);
-        add(but_log);
+        but_next = new JButton("NEXT  ");
+        but_next.setFont(new Font("Arial",Font.BOLD,14));
+        but_next.setForeground(Color.white);
+        but_next.setBackground(Color.black);
+        but_next.setBounds(325,350,230,30);
+        but_next.addActionListener(this);
+        add(but_next);
 
         
-      /*  ImageIcon bimg1 = new ImageIcon(ClassLoader.getSystemResource("icon/backbg.png"));
+       ImageIcon bimg1 = new ImageIcon(ClassLoader.getSystemResource("icon/backbg.png"));
         Image bimg2 = bimg1.getImage().getScaledInstance(850, 480,Image.SCALE_DEFAULT);
         ImageIcon bimg3 = new ImageIcon(bimg2);
         JLabel bimage = new JLabel(bimg3);
         bimage.setBounds(0, 0, 850, 480);
-        add(bimage);*/
+        add(bimage);
         
         setLayout(null);
         setSize(850,480); 
@@ -166,9 +143,11 @@ public class WelcomeWindow extends JFrame implements ActionListener {
                 ctf.setText("");
                 ppf.setText("");
              }
-            else if(e.getSource() == but_log)
+            else if(e.getSource() == but_next)
              {
-                 
+                 GUI gui = new GUI();
+                 String args[] = null;
+                 gui.main(args);
              }
          }catch(Exception E){
              E.printStackTrace();
