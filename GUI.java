@@ -1028,5 +1028,4 @@ class TitleBar extends JPanel{
     }
    
 }
-    
 }
