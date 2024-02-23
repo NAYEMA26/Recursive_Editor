@@ -1,0 +1,182 @@
+
+package notepad;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
+/**
+ *
+ * @author hp
+ */
+
+
+
+
+import java.awt.*;
+import java.awt.event.*;
+
+import javax.swing.*;
+
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
+/**
+ *
+ * @author NAYEMA FERDOUSHI 
+ * PSTU 2102026 CSE
+ */
+public class WelcomeWindow extends JFrame implements ActionListener {
+    JLabel lab,labAurthor, lab1, lab2, lab3;
+    JTextField ctf;
+    JPasswordField ppf;
+    
+    JButton but_log, but_clr, but_back;
+    
+    WelcomeWindow()
+    {
+        
+        super("Patuakhali Science & Technology");
+        
+      /* ImageIcon img1 = new ImageIcon(ClassLoader.getSystemResource("icon/pstu.icon.png"));
+        Image img2 = img1.getImage().getScaledInstance(100, 100,Image.SCALE_DEFAULT);
+        ImageIcon img3 = new ImageIcon(img2);
+        JLabel image = new JLabel(img3);
+        image.setBounds(350, 10, 100, 100);
+        add(image);
+      */  
+       /*   ImageIcon iimg1 = new ImageIcon(ClassLoader.getSystemResource("icon/pstu.dairy.jpg"));
+        Image iimg2 = iimg1.getImage().getScaledInstance(100, 100,Image.SCALE_DEFAULT);
+        ImageIcon iimg3 = new ImageIcon(iimg2);
+        JLabel iimage = new JLabel(iimg3);
+        iimage.setBounds(630, 350, 100, 100);
+        add(iimage);
+        */
+       
+         lab = new JLabel("      Recursive Editor");
+        lab.setForeground(Color.BLACK);
+        lab.setFont(new Font("AvantGrade",Font.BOLD, 28));
+        lab.setBounds(240, 70, 450, 40);
+        add(lab);
+        
+        labAurthor  = new JLabel("Author: Nayema Ferdoushi Version 1.0");
+        labAurthor.setForeground(Color.BLACK);
+        labAurthor.setFont(new Font("AvantGrade",Font.BOLD, 22));
+        labAurthor.setBounds(200, 120, 450, 40);
+        add(labAurthor);
+        
+        lab1 = new JLabel("WELCOME TO PSTU ");
+        lab1.setForeground(Color.BLACK);
+        lab1.setFont(new Font("AvantGrade",Font.BOLD, 38));
+        lab1.setBounds(230, 12, 450, 40);
+        add(lab1);
+        
+        lab2 = new JLabel ("ID No :");
+        lab2.setForeground(Color.BLACK);
+        lab2.setFont(new Font("Relway",Font.BOLD, 28));
+        lab2.setBounds(150, 190, 375, 30);
+        add(lab2);
+        
+        ctf = new JTextField(15);
+        ctf.setBounds(325,190,230,30);
+        ctf.setFont(new Font("Arial",Font.BOLD,14));
+        add(ctf);
+        
+        lab3 = new JLabel ("Password :");
+        lab3.setForeground(Color.BLACK);
+        lab3.setFont(new Font("Relway",Font.BOLD, 28));
+        lab3.setBounds(150, 250, 375, 30);
+        add(lab3);
+        
+        ppf = new JPasswordField(15);
+        ppf.setBounds(325,250,230,30);
+        ppf.setFont(new Font("Arial",Font.BOLD,14));
+        add(ppf);
+        
+        
+        but_back = new JButton("BACK ");
+        but_back.setFont(new Font("Arial",Font.BOLD,14));
+        but_back.setForeground(Color.white);
+        but_back.setBackground(Color.black);
+        but_back.setBounds(325,300,100,30);
+        but_back.addActionListener(this);
+        add(but_back);
+        
+         but_clr = new JButton("CLEAR  ");
+        but_clr.setFont(new Font("Arial",Font.BOLD,14));
+        but_clr.setForeground(Color.white);
+        but_clr.setBackground(Color.black);
+        but_clr.setBounds(450,300,100,30);
+        but_clr.addActionListener(this);
+        add(but_clr);
+        
+          but_log = new JButton("NEXT  ");
+        but_log.setFont(new Font("Arial",Font.BOLD,14));
+        but_log.setForeground(Color.white);
+        but_log.setBackground(Color.black);
+        but_log.setBounds(325,350,230,30);
+        but_log.addActionListener(this);
+        add(but_log);
+
+        
+      /*  ImageIcon bimg1 = new ImageIcon(ClassLoader.getSystemResource("icon/backbg.png"));
+        Image bimg2 = bimg1.getImage().getScaledInstance(850, 480,Image.SCALE_DEFAULT);
+        ImageIcon bimg3 = new ImageIcon(bimg2);
+        JLabel bimage = new JLabel(bimg3);
+        bimage.setBounds(0, 0, 850, 480);
+        add(bimage);*/
+        
+        setLayout(null);
+        setSize(850,480); 
+        setLocationRelativeTo(null);
+        setVisible(true);
+        
+    }
+    
+    @Override
+     public void actionPerformed(ActionEvent e){
+          
+         try{
+             
+             if(e.getSource() == but_back)
+             {
+                  setVisible(false);
+             }
+             
+             else if(e.getSource() == but_clr)
+             {
+                 //setVisible(false);
+                ctf.setText("");
+                ppf.setText("");
+             }
+            else if(e.getSource() == but_log)
+             {
+                 
+             }
+         }catch(Exception E){
+             E.printStackTrace();
+         }
+     }
+
+    public static void main(String[] args) {
+        
+       new WelcomeWindow();
+    }
+}
