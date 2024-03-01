@@ -1,6 +1,6 @@
-#NAYEMA_FERDOUSHI/ Simple-Notepad
+# NAYEMA_FERDOUSHI/ Simple-Notepad
 
-#Project name : Recursive Editor.
+# Project name : Recursive Editor.
 <!-- badges -->
 ```
 Second Semester Final Project with Java Programming Language.
