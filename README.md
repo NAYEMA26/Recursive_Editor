@@ -14,3 +14,7 @@ Faculty: Computer Science & Engineering
 ### Homepage
 
 ![Screenshot 2024-03-01 200829](https://github.com/NAYEMA26/Nayema26_Simple-Notepad/assets/134846919/9a93d6a0-34e3-45a4-8c75-423148af130b)
+
+- Back -> Exit 
+- Clear -> Id No and Password will be cleared 
+- Next -> For Visit Next page 
