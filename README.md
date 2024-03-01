@@ -21,7 +21,8 @@ Faculty: Computer Science & Engineering
 ## Next page
 ![Screenshot 2024-03-01 202841](https://github.com/NAYEMA26/Nayema26_Simple-Notepad/assets/134846919/fa8d8259-6bc2-4df5-89cf-0d29245d3467)
 
-- File ![Screenshot 2024-03-01 203147](https://github.com/NAYEMA26/Nayema26_Simple-Notepad/assets/134846919/1ea24dba-0d20-4a2a-8f9f-52ea23dd5a5e)
+### File 
+![Screenshot 2024-03-01 203147](https://github.com/NAYEMA26/Nayema26_Simple-Notepad/assets/134846919/1ea24dba-0d20-4a2a-8f9f-52ea23dd5a5e)
 
 ### Edit 
 ![Screenshot 2024-03-01 204446](https://github.com/NAYEMA26/Nayema26_Simple-Notepad/assets/134846919/dbdc0f4a-4f11-4ea4-9cad-855fb5bb4da0)
