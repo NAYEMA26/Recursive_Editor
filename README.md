@@ -58,4 +58,10 @@ Faculty: Computer Science & Engineering
 
 ---
 
+# Contribution 
+[click here](https://github.com/NAYEMA26/Nayema26_Simple-Notepad)
 
+
+- 🥹 I’m looking for help with [Simple-Notepad](https://github.com/NAYEMA26/Simple-Notepad)
+
+- Thank you :) 
