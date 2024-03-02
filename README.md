@@ -21,7 +21,7 @@ Faculty: Computer Science & Engineering
 ## Next page
 ![Screenshot 2024-03-01 202841](https://github.com/NAYEMA26/Nayema26_Simple-Notepad/assets/134846919/fa8d8259-6bc2-4df5-89cf-0d29245d3467)
 
-### File 
+## File 
 ![Screenshot 2024-03-01 203147](https://github.com/NAYEMA26/Nayema26_Simple-Notepad/assets/134846919/1ea24dba-0d20-4a2a-8f9f-52ea23dd5a5e)
 
 - New -> New Text Page & To use todo list you can Sort / Organize your task
@@ -30,16 +30,32 @@ Faculty: Computer Science & Engineering
 - Save As -> You will be get a file address directory  
 - Exit -> System.exit(0);
 
-### Edit
+## Edit
 ![Screenshot 2024-03-02 112131](https://github.com/NAYEMA26/Nayema26_Simple-Notepad/assets/134846919/78dade22-2fa8-4c1a-95f9-088304718456)
 
 - Undo -> Delete Something
 - Redo -> Add something 
 
-### Format 
+## Format 
 ![Screenshot 2024-03-02 113334](https://github.com/NAYEMA26/Nayema26_Simple-Notepad/assets/134846919/45608de9-a056-4d0c-a829-faa08202d721)
 
 - Font -> Arial , Cosmic Sans MS, Times New Roman 
-- Font Size -> 8,12,16, 20 (sd), 24 (sf ) , 26 (it's mine id)
+- Font Size -> 8,12,16, 20 (sd), 24 (sf) , 26 (it's mine id)
+
+## Color 
+
+![Screenshot 2024-03-02 114041](https://github.com/NAYEMA26/Nayema26_Simple-Notepad/assets/134846919/458efef0-0e3e-41e7-aa12-3bad99ac55f9)
+
+- Pink -> yellow (hehhe)
+
+## About 
+
+![Screenshot 2024-03-02 114321](https://github.com/NAYEMA26/Nayema26_Simple-Notepad/assets/134846919/5bf4fc11-58dd-4fe2-beec-46b0879bd738)
+
+- Informating -> Get my GitHub Link
+- Feedback -> Send a msg 
+
+
+---
 
 
