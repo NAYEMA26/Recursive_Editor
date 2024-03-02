@@ -24,15 +24,22 @@ Faculty: Computer Science & Engineering
 ### File 
 ![Screenshot 2024-03-01 203147](https://github.com/NAYEMA26/Nayema26_Simple-Notepad/assets/134846919/1ea24dba-0d20-4a2a-8f9f-52ea23dd5a5e)
 
-### Edit 
-![Screenshot 2024-03-01 204446](https://github.com/NAYEMA26/Nayema26_Simple-Notepad/assets/134846919/dbdc0f4a-4f11-4ea4-9cad-855fb5bb4da0)
+- New -> New Text Page & To use todo list you can Sort / Organize your task
+- Open -> Open a path file address directory 
+- Save -> Save your text on your current path location 
+- Save As -> You will be get a file address directory  
+- Exit -> System.exit(0);
+
+### Edit
+![Screenshot 2024-03-02 112131](https://github.com/NAYEMA26/Nayema26_Simple-Notepad/assets/134846919/78dade22-2fa8-4c1a-95f9-088304718456)
+
+- Undo -> Delete Something
+- Redo -> Add something 
 
 ### Format 
-![Screenshot 2024-03-01 204745](https://github.com/NAYEMA26/Nayema26_Simple-Notepad/assets/134846919/1792f5a7-01d1-4cf3-b570-28066fa6685e)
+![Screenshot 2024-03-02 113334](https://github.com/NAYEMA26/Nayema26_Simple-Notepad/assets/134846919/45608de9-a056-4d0c-a829-faa08202d721)
 
-### Color 
-![Screenshot 2024-03-01 204924](https://github.com/NAYEMA26/Nayema26_Simple-Notepad/assets/134846919/9b4cfcce-1769-4b1d-8bc2-0759a33758c2)
+- Font -> Arial , Cosmic Sans MS, Times New Roman 
+- Font Size -> 8,12,16, 20 (sd), 24 (sf ) , 26 (it's mine id)
 
-### About 
 
-![Screenshot 2024-03-01 205002](https://github.com/NAYEMA26/Nayema26_Simple-Notepad/assets/134846919/681ffd12-f141-4a4e-826b-37f795959683)
