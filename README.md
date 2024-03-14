@@ -42,11 +42,11 @@ Faculty: Computer Science & Engineering
 - Font -> Arial , Cosmic Sans MS, Times New Roman 
 - Font Size -> 8,12,16, 20 (sd), 24 (sf) , 26 (it's mine id)
 
-## Color 
+## Theme 
 
 ![Screenshot 2024-03-02 114041](https://github.com/NAYEMA26/Nayema26_Simple-Notepad/assets/134846919/458efef0-0e3e-41e7-aa12-3bad99ac55f9)
 
-- Pink -> yellow (hehhe)
+- Coustomized -> Yellow background
 
 ## About 
 
